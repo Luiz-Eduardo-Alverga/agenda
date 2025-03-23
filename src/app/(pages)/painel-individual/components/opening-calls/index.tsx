@@ -1,19 +1,15 @@
-import { DialogClose, DialogContent, DialogTitle } from '@/components/ui/dialog'
+import { DialogContent, DialogTitle } from '@/components/ui/dialog'
 
 import { Separator } from '@/components/ui/separator'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
+import { useState } from 'react'
+import { FirstStepOpeningCalls } from './steps/first-step'
+import { SecondStepOpeningCalls } from './steps/second-step'
+import { ThirdStepOpeningCalls } from './steps/third-step'
 
 export function OpeningCallsDialog() {
+  const [step, setStep] = useState(1)
+
   return (
     <DialogContent className="sm:max-w-xl">
       <div className="space-y-4">
@@ -34,68 +30,15 @@ export function OpeningCallsDialog() {
 
         <div className="flex flex-col gap-1">
           <span className="">
-            Etapa <span className="font-bold">1</span> de{' '}
+            Etapa <span className="font-bold">{step}</span> de{' '}
             <span className="font-bold">3</span>
           </span>
           <Progress className="h-6" value={50} />
         </div>
 
-        <div className="flex flex-col gap-2">
-          <div className="space-y-1">
-            <Label>Tipo</Label>
-            <Select>
-              <SelectTrigger className="w-full">
-                <SelectValue
-                  defaultValue="whatsapp"
-                  placeholder="Canal"
-                ></SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="whatsapp">Whatsapp</SelectItem>
-                <SelectItem value="telefone">Telefone</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-1">
-            <Label>Solicitante</Label>
-            <Input placeholder="Informe o nome do solicitante" />
-          </div>
-
-          <div className="space-y-1">
-            <Label>Telefone</Label>
-            <Input placeholder="Informe o telefone do cliente" />
-          </div>
-
-          <div className="space-y-1">
-            <Label>Acesso</Label>
-            <Select>
-              <SelectTrigger className="w-full">
-                <SelectValue
-                  defaultValue="anydesk"
-                  placeholder="Canal"
-                ></SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="anydesk">Anydesk</SelectItem>
-                <SelectItem value="teamviewe">Team Viewer</SelectItem>
-                <SelectItem value="aeroadmin">Aero admin</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-1">
-            <Label>ID/IP</Label>
-            <Input className="" />
-          </div>
-
-          <div className="ml-auto space-x-1">
-            <DialogClose asChild>
-              <Button variant={'outline'}>Cancelar</Button>
-            </DialogClose>
-            <Button>Prosseguir</Button>
-          </div>
-        </div>
+        {step === 1 && <FirstStepOpeningCalls setStep={setStep} />}
+        {step === 2 && <SecondStepOpeningCalls setStep={setStep} />}
+        {step === 3 && <ThirdStepOpeningCalls setStep={setStep} />}
       </div>
     </DialogContent>
   )

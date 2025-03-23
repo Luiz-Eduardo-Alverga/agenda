@@ -124,8 +124,8 @@ export function CustomerList() {
                 <TableRow>
                   <TableHead>Registro</TableHead>
                   <TableHead>Nome Fantasia</TableHead>
-                  <TableHead>Razão Social</TableHead>
                   <TableHead>CNPJ</TableHead>
+                  <TableHead>Razão Social</TableHead>
                   <TableHead>Cidade</TableHead>
                   <TableHead>UF</TableHead>
                   <TableHead>Partner</TableHead>
@@ -149,8 +149,8 @@ export function CustomerList() {
                   >
                     <TableCell>{customer.registro}</TableCell>
                     <TableCell>{customer.fantasia}</TableCell>
-                    <TableCell>{customer.razao}</TableCell>
                     <TableCell>{customer.cnpj}</TableCell>
+                    <TableCell>{customer.razao}</TableCell>
                     <TableCell>{customer.cidade}</TableCell>
                     <TableCell>{customer.uf}</TableCell>
                     <TableCell>{customer.partner}</TableCell>
@@ -164,7 +164,6 @@ export function CustomerList() {
         </div>
       </div>
 
-      {/* Modal */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <OpeningCallsDialog />
       </Dialog>
