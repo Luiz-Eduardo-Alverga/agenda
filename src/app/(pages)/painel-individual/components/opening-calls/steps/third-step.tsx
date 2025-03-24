@@ -86,6 +86,7 @@ export function ThirdStepOpeningCalls({ setStep }: ThirdStepOpeningCallsProps) {
         </Select>
       </div>
 
+      {/* Campo de Data - Digitação sem barras e seleção no calendário */}
       <div className="space-y-1">
         <Label>Data</Label>
         <div className="relative">
@@ -96,7 +97,7 @@ export function ThirdStepOpeningCalls({ setStep }: ThirdStepOpeningCallsProps) {
                   value={inputValue}
                   onChange={handleInputChange}
                   onBlur={handleBlur}
-                  maxLength={10}
+                  maxLength={10} // Máximo "DD/MM/AAAA"
                   placeholder="DD/MM/AAAA"
                   className="pr-10"
                 />
