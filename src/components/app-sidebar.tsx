@@ -9,14 +9,17 @@ import {
 } from 'lucide-react'
 
 import { NavMain } from '@/components/nav-main'
+import { NavUser } from '@/components/nav-user'
 import { TeamSwitcher } from '@/components/team-switcher'
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarHeader,
   SidebarRail,
 } from '@/components/ui/sidebar'
 
+// This is sample data.
 const data = {
   user: {
     name: 'shadcn',
@@ -43,7 +46,7 @@ const data = {
   navMain: [
     {
       title: 'Agenda',
-      url: '#',
+      url: '/',
       icon: SquareTerminal,
       isActive: true,
       items: [
@@ -53,7 +56,7 @@ const data = {
         },
         {
           title: 'Painel Individual',
-          url: '/painel-individual',
+          url: 'painel-individual',
         },
       ],
     },
@@ -69,9 +72,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>
-      {/* <SidebarFooter>
+      <SidebarFooter>
         <NavUser user={data.user} />
-      </SidebarFooter> */}
+      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   )

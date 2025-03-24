@@ -8,7 +8,6 @@ import { Separator } from '@/components/ui/separator'
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
 } from '@/components/ui/breadcrumb'
 import Link from 'next/link'
