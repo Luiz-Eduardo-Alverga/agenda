@@ -13,9 +13,13 @@ import { Button } from '@/components/ui/button'
 import { ArrowRight, X } from 'lucide-react'
 interface FirstStepOpeningCallsProps {
   setStep: (step: number) => void
+  setProgres: (progress: number) => void
 }
 
-export function FirstStepOpeningCalls({ setStep }: FirstStepOpeningCallsProps) {
+export function FirstStepOpeningCalls({
+  setStep,
+  setProgres,
+}: FirstStepOpeningCallsProps) {
   return (
     <div className="flex flex-col gap-2">
       <div className="space-y-1">
@@ -63,14 +67,19 @@ export function FirstStepOpeningCalls({ setStep }: FirstStepOpeningCallsProps) {
         <Input className="" />
       </div>
 
-      <div className="mt-2 ml-auto space-x-1">
+      <div className="mt-2 ml-auto space-x-2">
         <DialogClose asChild>
           <Button variant={'outline'}>
             <X />
             Cancelar
           </Button>
         </DialogClose>
-        <Button onClick={() => setStep(2)}>
+        <Button
+          onClick={() => {
+            setStep(2)
+            setProgres(66)
+          }}
+        >
           <ArrowRight />
           Prosseguir
         </Button>

@@ -3,9 +3,10 @@
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Search } from 'lucide-react'
+import { RefreshCcw, Search } from 'lucide-react'
 import { OccurrencesCard } from './components/occurrences-card'
 import { CustomerList } from './components/customer-list-dialog'
+import { Button } from '@/components/ui/button'
 
 const occurrencesData = [
   {
@@ -89,17 +90,25 @@ export default function IndividualPanel() {
 
           <Separator />
 
-          <div className="relative mt-3 pr-2">
-            <Search
-              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-              size={18}
-            />
-            <Input
-              type="text"
-              placeholder="Buscar ocorrência..."
-              className="w-full pl-10 pr-2 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
+          <div className="flex items-center mt-3 pr-2 gap-2">
+            <div className="relative w-full">
+              <Search
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                size={18}
+              />
+              <Input
+                type="text"
+                placeholder="Buscar ocorrência..."
+                className=" pl-10 pr-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
+
+            <Button className="cursor-pointer" variant={'outline'}>
+              <RefreshCcw />
+            </Button>
           </div>
+
+          <Separator className="mt-1" />
 
           <div className="flex-1 overflow-y-auto">
             {occurrencesData.map((occurrence, index) => (

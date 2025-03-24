@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
   Select,
@@ -10,58 +8,18 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { ArrowLeft, Check, Calendar as CalendarIcon } from 'lucide-react'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
-import { Calendar } from '@/components/ui/calendar'
-import { format, parse } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
+import { ArrowLeft, Check } from 'lucide-react'
+import { InputCalendar } from '@/components/input-calendar'
 
 interface ThirdStepOpeningCallsProps {
   setStep: (step: number) => void
+  setProgres: (progress: number) => void
 }
 
-export function ThirdStepOpeningCalls({ setStep }: ThirdStepOpeningCallsProps) {
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
-  const [inputValue, setInputValue] = useState('')
-
-  // Função para formatar a data automaticamente enquanto o usuário digita
-  const formatDate = (value: string) => {
-    const numbers = value.replace(/\D/g, '') // Remove tudo que não for número
-    if (numbers.length <= 2) return numbers
-    if (numbers.length <= 4) return `${numbers.slice(0, 2)}/${numbers.slice(2)}`
-    return `${numbers.slice(0, 2)}/${numbers.slice(2, 4)}/${numbers.slice(4, 8)}`
-  }
-
-  // Atualiza o campo enquanto o usuário digita
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = event.target.value
-    setInputValue(formatDate(rawValue))
-  }
-
-  // Valida e converte a data ao sair do campo
-  const handleBlur = () => {
-    if (inputValue.length === 10) {
-      const parsedDate = parse(inputValue, 'dd/MM/yyyy', new Date())
-      if (!isNaN(parsedDate.getTime())) {
-        setSelectedDate(parsedDate)
-      } else {
-        setInputValue('') // Reseta se for inválida
-      }
-    }
-  }
-
-  // Atualiza a data ao selecionar no calendário
-  const handleSelectDate = (date: Date | undefined) => {
-    if (date) {
-      setSelectedDate(date)
-      setInputValue(format(date, 'dd/MM/yyyy')) // Atualiza o input
-    }
-  }
-
+export function ThirdStepOpeningCalls({
+  setStep,
+  setProgres,
+}: ThirdStepOpeningCallsProps) {
   return (
     <div className="flex flex-col gap-2">
       <div className="space-y-1">
@@ -86,39 +44,16 @@ export function ThirdStepOpeningCalls({ setStep }: ThirdStepOpeningCallsProps) {
         </Select>
       </div>
 
-      {/* Campo de Data - Digitação sem barras e seleção no calendário */}
-      <div className="space-y-1">
-        <Label>Data</Label>
-        <div className="relative">
-          <Popover>
-            <PopoverTrigger asChild>
-              <div>
-                <Input
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  onBlur={handleBlur}
-                  maxLength={10} // Máximo "DD/MM/AAAA"
-                  placeholder="DD/MM/AAAA"
-                  className="pr-10"
-                />
-                <CalendarIcon className="absolute right-2 top-2.5 h-5 w-5 text-gray-500 cursor-pointer" />
-              </div>
-            </PopoverTrigger>
-            <PopoverContent align="start" className="w-auto p-0">
-              <Calendar
-                mode="single"
-                selected={selectedDate}
-                onSelect={handleSelectDate}
-                locale={ptBR}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
-        </div>
-      </div>
+      <InputCalendar />
 
-      <div className="ml-auto space-x-1">
-        <Button variant={'outline'} onClick={() => setStep(2)}>
+      <div className="ml-auto space-x-2">
+        <Button
+          variant={'outline'}
+          onClick={() => {
+            setStep(2)
+            setProgres(66)
+          }}
+        >
           <ArrowLeft />
           Voltar
         </Button>

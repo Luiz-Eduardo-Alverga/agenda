@@ -14,10 +14,12 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 interface SecondStepOpeningCallsProps {
   setStep: (step: number) => void
+  setProgres: (progress: number) => void
 }
 
 export function SecondStepOpeningCalls({
   setStep,
+  setProgres,
 }: SecondStepOpeningCallsProps) {
   return (
     <div className="flex flex-col gap-2">
@@ -71,13 +73,24 @@ export function SecondStepOpeningCalls({
         </Table>
       </div>
 
-      <div className="mt-2 ml-auto space-x-1">
-        <Button variant={'outline'} onClick={() => setStep(1)}>
+      <div className="mt-2 ml-auto space-x-2">
+        <Button
+          variant={'outline'}
+          onClick={() => {
+            setStep(1)
+            setProgres(33)
+          }}
+        >
           <ArrowLeft />
           Voltar
         </Button>
 
-        <Button onClick={() => setStep(3)}>
+        <Button
+          onClick={() => {
+            setStep(3)
+            setProgres(100)
+          }}
+        >
           <ArrowRight />
           Prosseguir
         </Button>

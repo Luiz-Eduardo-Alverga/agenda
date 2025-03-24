@@ -9,6 +9,7 @@ import { ThirdStepOpeningCalls } from './steps/third-step'
 
 export function OpeningCallsDialog() {
   const [step, setStep] = useState(1)
+  const [progress, setProgress] = useState(33)
 
   return (
     <DialogContent className="sm:max-w-xl">
@@ -33,12 +34,18 @@ export function OpeningCallsDialog() {
             Etapa <span className="font-bold">{step}</span> de{' '}
             <span className="font-bold">3</span>
           </span>
-          <Progress className="h-6" value={50} />
+          <Progress className="h-6" value={progress} />
         </div>
 
-        {step === 1 && <FirstStepOpeningCalls setStep={setStep} />}
-        {step === 2 && <SecondStepOpeningCalls setStep={setStep} />}
-        {step === 3 && <ThirdStepOpeningCalls setStep={setStep} />}
+        {step === 1 && (
+          <FirstStepOpeningCalls setStep={setStep} setProgres={setProgress} />
+        )}
+        {step === 2 && (
+          <SecondStepOpeningCalls setStep={setStep} setProgres={setProgress} />
+        )}
+        {step === 3 && (
+          <ThirdStepOpeningCalls setStep={setStep} setProgres={setProgress} />
+        )}
       </div>
     </DialogContent>
   )
