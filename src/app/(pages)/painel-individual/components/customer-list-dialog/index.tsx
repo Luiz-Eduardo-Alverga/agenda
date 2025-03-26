@@ -7,20 +7,17 @@ import {
 } from '@/components/ui/tooltip'
 import { TooltipTrigger } from '@radix-ui/react-tooltip'
 import { Button } from '@/components/ui/button'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
 import { CircleHelp, Search, X } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { Input } from '@/components/ui/input'
 import { Dialog } from '@/components/ui/dialog'
 import { OpeningCallsDialog } from '../opening-calls'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { CustomersTable } from './customer-table'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+import { z } from 'zod'
 
 const customers = [
   {
@@ -69,14 +66,21 @@ const customers = [
   },
 ]
 
+const customersFilterSchema = z.object({
+  filter: z.string(),
+})
+
+type CustomersFilterSchema = z.infer<typeof customersFilterSchema>
+
 export function CustomerList() {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const { register, setFocus } = useForm<CustomersFilterSchema>({
+    resolver: zodResolver(customersFilterSchema),
+  })
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      setIsDialogOpen(true)
-    }
-  }
+  useEffect(() => {
+    setFocus('filter')
+  })
 
   return (
     <>
@@ -107,7 +111,10 @@ export function CustomerList() {
       </div>
 
       <div className="mt-2 pl-2 space-y-2">
-        <Input placeholder="Digite a informação que você deseja buscar" />
+        <Input
+          placeholder="Digite a informação que você deseja buscar"
+          {...register('filter')}
+        />
         <div className="grid grid-cols-2 gap-2">
           <Button>
             <X /> <span>Limpar Filtros</span>{' '}
@@ -117,51 +124,10 @@ export function CustomerList() {
           </Button>
         </div>
 
-        <div className="relative pt-4">
-          <div className="w-full absolute overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Registro</TableHead>
-                  <TableHead>Nome Fantasia</TableHead>
-                  <TableHead>CNPJ</TableHead>
-                  <TableHead>Razão Social</TableHead>
-                  <TableHead>Cidade</TableHead>
-                  <TableHead>UF</TableHead>
-                  <TableHead>Partner</TableHead>
-                  <TableHead>QTD OC</TableHead>
-                  <TableHead>Risco</TableHead>
-                </TableRow>
-              </TableHeader>
-
-              <TableBody>
-                {customers.map((customer) => (
-                  <TableRow
-                    key={customer.registro}
-                    className="h-14 cursor-pointer focus:ring-2 focus:ring-primary focus:outline-none"
-                    tabIndex={0}
-                    onClick={() => {
-                      setIsDialogOpen(true)
-                    }}
-                    onKeyDown={(event) => {
-                      handleKeyDown(event)
-                    }}
-                  >
-                    <TableCell>{customer.registro}</TableCell>
-                    <TableCell>{customer.fantasia}</TableCell>
-                    <TableCell>{customer.cnpj}</TableCell>
-                    <TableCell>{customer.razao}</TableCell>
-                    <TableCell>{customer.cidade}</TableCell>
-                    <TableCell>{customer.uf}</TableCell>
-                    <TableCell>{customer.partner}</TableCell>
-                    <TableCell>{customer.qtdOc}</TableCell>
-                    <TableCell>{customer.risco}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </div>
+        <CustomersTable
+          customers={customers}
+          setIsDialogOpen={setIsDialogOpen}
+        />
       </div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

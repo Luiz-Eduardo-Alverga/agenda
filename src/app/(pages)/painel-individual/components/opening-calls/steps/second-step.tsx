@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -11,6 +13,9 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { useEffect } from 'react'
+import { useFormContext } from 'react-hook-form'
+import { OpeningCallsSchema } from '..'
 
 interface SecondStepOpeningCallsProps {
   setStep: (step: number) => void
@@ -21,11 +26,20 @@ export function SecondStepOpeningCalls({
   setStep,
   setProgres,
 }: SecondStepOpeningCallsProps) {
+  const { setFocus, register } = useFormContext<OpeningCallsSchema>()
+
+  useEffect(() => {
+    setFocus('scripts')
+  })
+
   return (
     <div className="flex flex-col gap-2">
       <div className="space-y-1">
         <Label>Scripts</Label>
-        <Input placeholder="Digite o nome do Script que você deseja usar" />
+        <Input
+          placeholder="Digite o nome do Script que você deseja usar"
+          {...register('scripts')}
+        />
       </div>
 
       <div>
@@ -75,6 +89,7 @@ export function SecondStepOpeningCalls({
 
       <div className="mt-2 ml-auto space-x-2">
         <Button
+          type="button"
           variant={'outline'}
           onClick={() => {
             setStep(1)
@@ -86,6 +101,7 @@ export function SecondStepOpeningCalls({
         </Button>
 
         <Button
+          type="button"
           onClick={() => {
             setStep(3)
             setProgres(100)

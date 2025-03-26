@@ -1,6 +1,5 @@
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Calendar as CalendarIcon } from 'lucide-react'
 import {
   Popover,
   PopoverContent,
@@ -69,7 +68,6 @@ export function InputCalendar() {
                 placeholder="DD/MM/AAAA"
                 className="pr-10"
               />
-              <CalendarIcon className="absolute right-2 top-2.5 h-5 w-5 text-gray-500 cursor-pointer" />
             </div>
           </PopoverTrigger>
           <PopoverContent align="start" className="w-auto p-0">

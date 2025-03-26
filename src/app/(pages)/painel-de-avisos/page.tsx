@@ -11,8 +11,6 @@ const releaseData = [
 ]
 
 export default async function NoticeBoard() {
-  await new Promise((resolve) => setTimeout(resolve, 1000))
-
   return (
     <div className="space-y-4">
       <h1 className="text-xl font-bold">Agenda - Painel de aviso</h1>
