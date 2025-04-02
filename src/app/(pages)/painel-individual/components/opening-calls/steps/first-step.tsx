@@ -25,11 +25,18 @@ export function FirstStepOpeningCalls({
   setStep,
   setProgres,
 }: FirstStepOpeningCallsProps) {
-  const { register, control, setFocus } = useFormContext<OpeningCallsSchema>()
+  const { register, control, setFocus, watch } =
+    useFormContext<OpeningCallsSchema>()
 
   useEffect(() => {
     setFocus('type')
   })
+
+  const applicantValue = watch('applicant')
+  const phoneValue = watch('phone')
+
+  const isInputApplicantValid = !!applicantValue
+  const isInputPhoneValid = !!phoneValue
 
   return (
     <div className="flex flex-col gap-2">
@@ -55,6 +62,7 @@ export function FirstStepOpeningCalls({
       <div className="space-y-1">
         <Label>Solicitante</Label>
         <Input
+          autoComplete="off"
           placeholder="Informe o nome do solicitante"
           {...register('applicant')}
         />
@@ -63,7 +71,8 @@ export function FirstStepOpeningCalls({
       <div className="space-y-1">
         <Label>Telefone</Label>
         <Input
-          mask={'(00) 0000-0000'}
+          mask={'(00) 000000000'}
+          autoComplete="off"
           placeholder="Informe o telefone do cliente"
           {...register('phone')}
         />
@@ -105,6 +114,7 @@ export function FirstStepOpeningCalls({
           </Button>
         </DialogClose>
         <Button
+          disabled={!isInputApplicantValid || !isInputPhoneValid}
           type="button"
           onClick={() => {
             setStep(2)

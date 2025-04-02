@@ -23,6 +23,7 @@ import {
   CommandList,
 } from '@/components/ui/command'
 import { cn } from '@/lib/utils'
+import { FooterStep } from './footer-step'
 
 const technicians = [
   { id: 1, name: 'APOIO N1', label: 'APOIO N1' },
@@ -47,7 +48,7 @@ export function ThirdStepOpeningCalls({
 
   useEffect(() => {
     setFocus('reasonForCalls')
-  })
+  }, [setFocus])
 
   const triggerRef = useRef<HTMLButtonElement>(null)
 
@@ -124,24 +125,15 @@ export function ThirdStepOpeningCalls({
         <Input mask="00:00" {...register('scheduledTime')} />
       </div>
 
-      <div className="ml-auto space-x-2">
-        <Button
-          type="button"
-          variant={'outline'}
-          onClick={() => {
-            setStep(2)
-            setProgres(66)
-          }}
-        >
-          <ArrowLeft />
-          Voltar
-        </Button>
-
-        <Button>
-          <Check />
-          Confirmar
-        </Button>
-      </div>
+      <FooterStep
+        buttonType="submit"
+        backButtonLabel="Voltar"
+        proceedButtonLabel="Confirmar"
+        backIcon={<ArrowLeft />}
+        proceedIcon={<Check />}
+        setProgresBackButton={() => setProgres(66)}
+        setStepBackButton={() => setStep(2)}
+      />
     </div>
   )
 }

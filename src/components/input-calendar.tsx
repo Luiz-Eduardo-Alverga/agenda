@@ -30,7 +30,10 @@ export function InputCalendar() {
   const handleBlur = () => {
     if (inputValue.length === 10) {
       const parsedDate = parse(inputValue, 'dd/MM/yyyy', new Date())
-      if (!isNaN(parsedDate.getTime()) && !isBefore(parsedDate, new Date())) {
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+
+      if (!isNaN(parsedDate.getTime()) && !isBefore(parsedDate, today)) {
         setSelectedDate(parsedDate)
       } else {
         setIsInvalidDate(true)
@@ -44,7 +47,10 @@ export function InputCalendar() {
   }
 
   const handleSelectDate = (date: Date | undefined) => {
-    if (date && !isBefore(date, new Date())) {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    if (date && !isBefore(date, today)) {
       setSelectedDate(date)
       setInputValue(format(date, 'dd/MM/yyyy'))
     } else {

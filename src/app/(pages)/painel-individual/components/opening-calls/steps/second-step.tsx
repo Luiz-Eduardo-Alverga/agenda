@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
@@ -16,6 +15,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { OpeningCallsSchema } from '..'
+import { FooterStep } from './footer-step'
 
 interface SecondStepOpeningCallsProps {
   setStep: (step: number) => void
@@ -87,30 +87,17 @@ export function SecondStepOpeningCalls({
         </Table>
       </div>
 
-      <div className="mt-2 ml-auto space-x-2">
-        <Button
-          type="button"
-          variant={'outline'}
-          onClick={() => {
-            setStep(1)
-            setProgres(33)
-          }}
-        >
-          <ArrowLeft />
-          Voltar
-        </Button>
-
-        <Button
-          type="button"
-          onClick={() => {
-            setStep(3)
-            setProgres(100)
-          }}
-        >
-          <ArrowRight />
-          Prosseguir
-        </Button>
-      </div>
+      <FooterStep
+        buttonType="submit"
+        backButtonLabel="Voltar"
+        proceedButtonLabel="Prosseguir"
+        backIcon={<ArrowLeft />}
+        proceedIcon={<ArrowRight />}
+        setStepProceedButton={() => setStep(3)}
+        setProgresProceedButton={() => setProgres(100)}
+        setProgresBackButton={() => setProgres(33)}
+        setStepBackButton={() => setStep(1)}
+      />
     </div>
   )
 }

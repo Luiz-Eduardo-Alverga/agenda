@@ -2,6 +2,7 @@ import { Separator } from '@/components/ui/separator'
 import { ReleaseCard } from './components/release-card'
 import { AnnouncementCard } from './components/announcement-card'
 import { BirthdayCard } from './components/birthday-card'
+import { Metadata } from 'next'
 
 const releaseData = [
   { title: 'Softshop', releaseDate: '22/03/2025', version: '9.17.0' },
@@ -9,6 +10,10 @@ const releaseData = [
   { title: 'Emissor NFe', releaseDate: '29/03/2025', version: '9.15.0' },
   { title: 'Selfhost', releaseDate: '01/04/2025', version: '2.4.0' },
 ]
+
+export const metadata: Metadata = {
+  title: 'Avisos',
+}
 
 export default async function NoticeBoard() {
   return (
