@@ -17,8 +17,8 @@ export const metadata: Metadata = {
 
 export default async function NoticeBoard() {
   return (
-    <div className="space-y-4">
-      <h1 className="text-xl font-bold">Agenda - Painel de aviso</h1>
+    <div className="space-y-2">
+      <h1 className="text-xl font-bold">Painel de aviso</h1>
 
       <Separator />
 

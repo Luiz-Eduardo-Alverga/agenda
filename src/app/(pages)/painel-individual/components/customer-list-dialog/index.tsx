@@ -112,6 +112,7 @@ export function CustomerList() {
 
       <div className="mt-2 pl-2 space-y-2">
         <Input
+          autoComplete="off"
           placeholder="Digite a informação que você deseja buscar"
           {...register('filter')}
         />

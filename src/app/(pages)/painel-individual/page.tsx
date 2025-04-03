@@ -68,11 +68,11 @@ const occurrencesData = [
 
 export default function IndividualPanel() {
   return (
-    <div className="space-y-4 flex flex-col flex-1">
-      <h1 className="text-xl font-bold">Agenda - Painel Individual</h1>
+    <div className="space-y-2 flex flex-col flex-1">
+      <h1 className="text-xl font-bold">Painel Individual</h1>
 
-      <div className="flex w-full h-full">
-        <div className="w-[400px] flex flex-col h-[calc(100vh-108px)] border-r border-t">
+      <div className="flex flex-col sm:flex-row w-full h-full">
+        <div className="sm:w-[400px] flex flex-col h-[calc(100vh-108px)] sm:border-r border-t">
           <div className="flex items-center justify-between py-2">
             <h2 className="text-lg font-semibold">Ocorrências</h2>
 
@@ -90,13 +90,14 @@ export default function IndividualPanel() {
 
           <Separator />
 
-          <div className="flex items-center mt-3 pr-2 gap-2">
+          <div className="flex items-center mt-3 sm:pr-2 gap-2">
             <div className="relative w-full">
               <Search
                 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
                 size={18}
               />
               <Input
+                autoComplete="off"
                 type="text"
                 placeholder="Buscar ocorrência..."
                 className=" pl-10 pr-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -107,8 +108,6 @@ export default function IndividualPanel() {
               <RefreshCcw />
             </Button>
           </div>
-
-          <Separator className="mt-1" />
 
           <div className="flex-1 overflow-y-auto">
             {occurrencesData.map((occurrence, index) => (

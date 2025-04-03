@@ -36,7 +36,7 @@ export function OccurrencesCard({
       : description
 
   return (
-    <Card className="mt-4 px-0 mr-2 py-2 gap-2  cursor-pointer hover:bg-zinc-100">
+    <Card className="mt-4 px-0 sm:mr-4 py-2 gap-2  cursor-pointer hover:bg-zinc-100">
       <CardHeader className="flex justify-between">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
         <span className="text-xs text-zinc-500">{hours}</span>

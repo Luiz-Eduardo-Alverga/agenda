@@ -56,7 +56,11 @@ export function ThirdStepOpeningCalls({
     <div className="flex flex-col gap-2">
       <div className="space-y-1">
         <Label>Motivo da Ocorrência</Label>
-        <Textarea className="max-h-[300px]" {...register('reasonForCalls')} />
+        <Textarea
+          className="max-h-[300px]"
+          {...register('reasonForCalls')}
+          style={{ wordBreak: 'break-word' }}
+        />
       </div>
 
       <div className="space-y-1">
