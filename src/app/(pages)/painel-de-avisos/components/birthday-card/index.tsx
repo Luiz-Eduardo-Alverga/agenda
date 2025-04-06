@@ -11,6 +11,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { birthdayData } from './birthday-data'
+import Image from 'next/image'
 
 export function BirthdayCard() {
   return (
@@ -18,8 +19,10 @@ export function BirthdayCard() {
       <CardHeader>
         <CardTitle>Aniversariantes do mês</CardTitle>
         <div className="mt-2 flex gap-2 border-1 rounded-sm">
-          <img
-            className="w-24 h-24 rounded-sm"
+          <Image
+            width={100}
+            height={100}
+            className="w-24 h-24 rounded-l-sm"
             src={birthdayData[0].profilePic}
             alt="foto de perfil"
           />

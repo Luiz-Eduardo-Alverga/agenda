@@ -87,7 +87,7 @@ export function AnnouncementCard() {
       </CardContent>
 
       <CardFooter className="m-auto">
-        <span className="text-lg text-sky-500">
+        <span className="text-lg text-primary">
           Você tem 15 mensagens não lidas
         </span>
       </CardFooter>

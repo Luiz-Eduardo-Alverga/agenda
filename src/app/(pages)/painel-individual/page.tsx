@@ -109,7 +109,7 @@ export default function IndividualPanel() {
             </Button>
           </div>
 
-          <div className="flex-1 overflow-y-auto">
+          <div className="mt-4 overflow-y-auto space-y-2">
             {occurrencesData.map((occurrence, index) => (
               <OccurrencesCard
                 key={index}

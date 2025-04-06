@@ -14,7 +14,7 @@ export function ReleaseCard({ releaseDate, title, version }: ReleaseCardProps) {
     <Card className="cursor-pointer flex flex-col h-full">
       <CardHeader className="flex justify-between">
         <CardTitle className="font-semibold">{title}</CardTitle>
-        <FolderOpen className="w-4 h-4 text-sky-500" />
+        <FolderOpen className="w-4 h-4 text-primary" />
       </CardHeader>
       <CardContent className="flex flex-col flex-grow justify-end">
         <span className="font-bold text-lg">{version}</span>

@@ -32,11 +32,11 @@ export function OccurrencesCard({
 
   const truncatedDescription =
     description.length > 116
-      ? description.substring(0, 113) + '...'
+      ? description.substring(0, 56) + '...'
       : description
 
   return (
-    <Card className="mt-4 px-0 sm:mr-4 py-2 gap-2  cursor-pointer hover:bg-zinc-100">
+    <Card className="px-0 sm:mr-4 py-2 gap-2  cursor-pointer hover:bg-muted/50">
       <CardHeader className="flex justify-between">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
         <span className="text-xs text-zinc-500">{hours}</span>

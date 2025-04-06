@@ -32,9 +32,11 @@ export function FirstStepOpeningCalls({
     setFocus('type')
   })
 
+  const typeValue = watch('type')
   const applicantValue = watch('applicant')
   const phoneValue = watch('phone')
 
+  const isSelectTypeValid = !!typeValue
   const isInputApplicantValid = !!applicantValue
   const isInputPhoneValid = !!phoneValue
 
@@ -114,7 +116,9 @@ export function FirstStepOpeningCalls({
           </Button>
         </DialogClose>
         <Button
-          disabled={!isInputApplicantValid || !isInputPhoneValid}
+          disabled={
+            !isSelectTypeValid || !isInputApplicantValid || !isInputPhoneValid
+          }
           type="button"
           onClick={() => {
             setStep(2)
