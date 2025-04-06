@@ -22,15 +22,17 @@ export function BirthdayCard() {
           <Image
             width={100}
             height={100}
-            className="w-24 h-24 rounded-l-sm"
+            className="rounded-l-sm"
             src={birthdayData[0].profilePic}
             alt="foto de perfil"
           />
           <div className="flex flex-col">
             <span>{birthdayData[0].name}</span>
             <Separator />
-            <span className="text-sm">{birthdayData[0].description}</span>
-            <div className="flex justify-between mt-auto pr-1">
+            <span className="text-sm line-clamp-2 md:line-clamp-none">
+              {birthdayData[0].description}
+            </span>
+            <div className="flex justify-between mt-auto pr-1 ">
               <span className="text-sm">Setor: {birthdayData[0].sector}</span>
               <span className="text-sm">PDV: {birthdayData[0].location}</span>
             </div>

@@ -104,7 +104,7 @@ export default function IndividualPanel() {
               />
             </div>
 
-            <Button className="cursor-pointer" variant={'outline'}>
+            <Button className="cursor-pointer h-9" variant={'outline'}>
               <RefreshCcw />
             </Button>
           </div>

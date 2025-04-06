@@ -34,7 +34,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/(dashboard)/painel-de-avisos/page.tsx"
-, "tailwind.config.js"  ],
+, "tailwind.config.ts"  ],
   "exclude": [
     "node_modules"
   ]
