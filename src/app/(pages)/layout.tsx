@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/breadcrumb'
 import Link from 'next/link'
 import { ModeToggle } from '@/components/mode-toggle'
+import { FloatingChat } from '@/components/floating-chat'
 
 export default function RootLayout({
   children,
@@ -44,6 +45,7 @@ export default function RootLayout({
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0 ">{children}</div>
       </SidebarInset>
+      <FloatingChat />
     </SidebarProvider>
   )
 }
