@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from 'react'
 import { SendHorizonal } from 'lucide-react'
 import Image from 'next/image'
 import { Button } from './ui/button'
+import { Input } from './ui/input'
 
 export function AIChat() {
   const [message, setMessage] = useState('')
@@ -61,8 +62,8 @@ export function AIChat() {
       </div>
 
       <div className="flex bg-white dark:bg-black h-18 items-center border rounded-b-lg">
-        <input
-          className="w-full h-full text-black dark:text-white dark:placeholder:text-white focus:outline-none focus:ring-0 p-4"
+        <Input
+          className="border-0 w-full h-full p-4 text-black dark:text-white dark:placeholder:text-muted-foreground focus-visible:border-0 focus-visible:ring-0"
           placeholder="Digite sua mensagem aqui"
           value={message}
           onChange={(e) => setMessage(e.target.value)}

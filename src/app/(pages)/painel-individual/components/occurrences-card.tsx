@@ -25,9 +25,24 @@ export function OccurrencesCard({
   occurrenceType,
 }: OccurrencesCardProps) {
   const occurrenceBadge = {
-    urgente: { text: 'Urgente', bg: 'bg-red-500' },
-    imediato: { text: 'Imediato', bg: 'bg-blue-500' },
-    franquia: { text: 'Franquia', bg: 'bg-green-500' },
+    urgente: {
+      text: 'Urgente',
+      bg: 'bg-red-500',
+      hover: 'hover:bg-red-500/90',
+      textColor: 'text-white',
+    },
+    imediato: {
+      text: 'Imediato',
+      bg: 'bg-blue-500',
+      hover: 'hover:bg-blue-500/90',
+      textColor: 'text-white',
+    },
+    franquia: {
+      text: 'Franquia',
+      bg: 'bg-green-500',
+      hover: 'hover:bg-green-500/90',
+      textColor: 'text-white',
+    },
   }[occurrenceType]
 
   const truncatedDescription =
@@ -56,7 +71,12 @@ export function OccurrencesCard({
 
         {occurrenceBadge && (
           <div className="ml-auto">
-            <Badge className={occurrenceBadge.bg}>{occurrenceBadge.text}</Badge>
+            <Badge
+              variant="outline"
+              className={`${occurrenceBadge.bg} ${occurrenceBadge.hover} ${occurrenceBadge.textColor}`}
+            >
+              {occurrenceBadge.text}
+            </Badge>
           </div>
         )}
       </CardFooter>

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { X } from 'lucide-react'
 import Image from 'next/image'
+import { AnimatePresence, motion } from 'framer-motion'
 import { AIChat } from './ai-chat'
 
 export function FloatingChat() {
@@ -28,13 +29,22 @@ export function FloatingChat() {
         )}
       </button>
 
-      {chatOpen && (
-        <div className="fixed bottom-20 right-4 z-50  w-[300px] sm:w-[400px] max-h-[700px] bg-background s overflow-auto">
-          <div className="text-sm">
-            <AIChat />
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {chatOpen && (
+          <motion.div
+            key="chat"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+            className="fixed bottom-20 right-4 z-50 w-[300px] sm:w-[400px] max-h-[700px] bg-background overflow-auto rounded-lg shadow-lg"
+          >
+            <div className="text-sm">
+              <AIChat />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }
