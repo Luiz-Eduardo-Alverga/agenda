@@ -1,6 +1,12 @@
+import { Trash } from 'lucide-react'
 import Image from 'next/image'
+import { Button } from '../ui/button'
 
-export function AIChatHeader() {
+interface AIChatHeaderProps {
+  setMessages: (args: []) => void
+}
+
+export function AIChatHeader({ setMessages }: AIChatHeaderProps) {
   return (
     <div className="flex items-center gap-4 bg-primary p-2 rounded-t-lg w-full">
       <Image
@@ -13,6 +19,12 @@ export function AIChatHeader() {
       <div className="flex flex-col">
         <span className="text-xl text-white">SoftcomMind</span>
         <span className="text-white">Seu assistente inteligente</span>
+      </div>
+
+      <div className="ml-auto pr-2">
+        <Button onClick={() => setMessages([])} className="cursor-pointer">
+          <Trash className=" !w-6 !h-6" />
+        </Button>
       </div>
     </div>
   )

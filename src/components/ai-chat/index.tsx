@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { SendHorizonal } from 'lucide-react'
 
 import { Button } from '../ui/button'
@@ -43,13 +43,35 @@ export function AIChat() {
     resolver: zodResolver(getFaqsSchema),
   })
 
+  const [shouldScroll, setShouldScroll] = useState(false)
+
   const chatContainerRef = useRef<HTMLDivElement | null>(null)
 
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<Message[]>(() => {
+    if (typeof window === 'undefined') return []
+    try {
+      const saved = localStorage.getItem('chat-messages')
+      return saved ? JSON.parse(saved) : []
+    } catch {
+      return []
+    }
+  })
+
+  useEffect(() => {
+    localStorage.setItem('chat-messages', JSON.stringify(messages))
+  }, [messages])
+
+  useEffect(() => {
+    if (shouldScroll && chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
+      setShouldScroll(false)
+    }
+  }, [messages, shouldScroll])
 
   async function handleGetFaqs({ question }: GetFaqsSchema) {
     if (!question.trim()) return
 
+    setShouldScroll(true)
     setMessages((prev) => [...prev, { author: 'user', content: question }])
     setValue('question', '')
 
@@ -75,7 +97,7 @@ export function AIChat() {
 
   return (
     <div className="flex flex-col">
-      <AIChatHeader />
+      <AIChatHeader setMessages={setMessages} />
 
       <div
         ref={chatContainerRef}
@@ -90,24 +112,28 @@ export function AIChat() {
             {messages.map((msg, idx) => (
               <div
                 key={idx}
-                className={`px-3 py-2 rounded-xl max-w-[80%] break-words ${
+                className={`px-3 py-2  max-w-[80%] break-words ${
                   msg.author === 'user'
-                    ? 'bg-primary text-white self-end ml-auto rounded-l-xl rounded-tr-xl'
-                    : 'bg-secondary text-black dark:text-white self-start mr-auto rounded-r-xl rounded-tl-xl'
+                    ? 'bg-primary text-white self-end ml-auto rounded-l-2xl rounded-tr-2xl'
+                    : 'bg-white secondary dark:bg-secondary text-black dark:text-white self-start mr-auto rounded-r-2xl rounded-tl-2xl'
                 }`}
               >
                 <>
                   <ReactMarkdown
                     components={{
-                      img: ({ src, alt }) => (
-                        <Image
-                          width={250}
-                          height={250}
-                          src={`/api/image-proxy?url=${encodeURIComponent(src ?? '')}`}
-                          alt={alt || 'imagem'}
-                          className="max-w-full h-auto rounded-md my-4 border"
-                        />
-                      ),
+                      img: ({ src, alt }) => {
+                        if (!src || !/^https?:\/\//.test(src)) return null
+
+                        return (
+                          <Image
+                            width={250}
+                            height={250}
+                            src={`/api/image-proxy?url=${encodeURIComponent(src)}`}
+                            alt={alt || 'imagem'}
+                            className="max-w-full h-auto rounded-md my-4 border"
+                          />
+                        )
+                      },
                     }}
                   >
                     {msg.content}
@@ -136,7 +162,7 @@ export function AIChat() {
                                       </Link>
                                     </li>
                                   </TooltipTrigger>
-                                  <TooltipContent className="max-w-64">
+                                  <TooltipContent className="max-w-96">
                                     <p>{faq.nome}</p>
                                   </TooltipContent>
                                 </Tooltip>
@@ -163,6 +189,23 @@ export function AIChat() {
                 </>
               </div>
             ))}
+
+            {isSubmitting && (
+              <div className="bg-secondary text-black dark:text-white px-3 py-2 rounded-r-xl rounded-tl-xl self-start mr-auto max-w-[80%] flex gap-1 items-center animate-pulse">
+                <span
+                  className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
+                  style={{ animationDelay: '0ms' }}
+                ></span>
+                <span
+                  className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
+                  style={{ animationDelay: '150ms' }}
+                ></span>
+                <span
+                  className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
+                  style={{ animationDelay: '300ms' }}
+                ></span>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -174,6 +217,7 @@ export function AIChat() {
             className="border-0 w-full h-full p-4 text-black dark:text-white dark:placeholder:text-muted-foreground focus-visible:border-0 focus-visible:ring-0"
             placeholder="Digite sua mensagem aqui"
             {...register('question')}
+            disabled={isSubmitting}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault()

@@ -1,5 +1,7 @@
 import { NextRequest } from 'next/server'
 import axios, { AxiosError } from 'axios'
+import { readFile } from 'fs/promises'
+import path from 'path'
 
 export async function GET(req: NextRequest) {
   const url = req.nextUrl.searchParams.get('url')
@@ -27,13 +29,29 @@ export async function GET(req: NextRequest) {
       },
     })
   } catch (error) {
-    const axiosError = error as AxiosError
+    console.error('Erro ao buscar imagem:', (error as AxiosError).message)
 
-    console.error('Erro ao buscar imagem:', axiosError.message)
-
-    return new Response(
-      `Erro ao buscar imagem: ${axiosError.response?.status || 'Desconhecido'}`,
-      { status: 500 },
+    // Caminho absoluto para a imagem fallback na pasta public
+    const fallbackPath = path.join(
+      process.cwd(),
+      'public',
+      'fallback-image.jpg',
     )
+
+    try {
+      const fallbackBuffer = await readFile(fallbackPath)
+      return new Response(fallbackBuffer, {
+        headers: {
+          'Content-Type': 'image/jpeg',
+          'Cache-Control': 'public, max-age=86400',
+        },
+        status: 200,
+      })
+    } catch (fallbackError) {
+      console.error('Erro ao carregar imagem fallback:', fallbackError)
+      return new Response('Erro ao buscar imagem e imagem fallback.', {
+        status: 500,
+      })
+    }
   }
 }
