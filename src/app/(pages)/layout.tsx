@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/breadcrumb'
 import Link from 'next/link'
 import { ModeToggle } from '@/components/mode-toggle'
-import { FloatingChat } from '@/components/floating-chat'
+import { FloatingChat } from '@/components/ai-chat/floating-chat'
 
 export default function RootLayout({
   children,
