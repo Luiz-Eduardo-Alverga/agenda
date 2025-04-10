@@ -27,7 +27,7 @@ export function CustomersTable({
   setIsDialogOpen,
 }: CustomerTableProps) {
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' || event.key === 'F4') {
       setIsDialogOpen(true)
     }
   }
@@ -56,7 +56,7 @@ export function CustomersTable({
                 key={customer.registro}
                 className="h-14 cursor-pointer focus:ring-2 focus:ring-primary focus:outline-none"
                 tabIndex={0}
-                onClick={() => {
+                onDoubleClick={() => {
                   setIsDialogOpen(true)
                 }}
                 onKeyDown={(event) => {

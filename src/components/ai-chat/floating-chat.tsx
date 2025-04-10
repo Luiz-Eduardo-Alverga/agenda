@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { X } from 'lucide-react'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
-import { AIChat } from './index'
+import { AIChat } from './ai-chat'
 
 export function FloatingChat() {
   const [chatOpen, setChatOpen] = useState(false)
